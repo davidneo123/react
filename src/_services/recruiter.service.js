@@ -1,16 +1,17 @@
 import config from 'config';
 
 export const recruiterService = {
-    getUsers
+    getCandidates
 };
 
 const requestOptions = {
     method: 'GET',
 };
 
-function getUsers(q) {
-    console.log(q)
-    return fetch(`${config.usersUrl}/users?q=${q}`, requestOptions).then(handleResponse)
+function getCandidates() {
+    return fetch(`${config.usersUrl}`, requestOptions)
+    .then(handleResponse)
+    // .then(res=>q?res.filter(data => data.id % 2 !== 0):res.filter(data => data.id % 2 === 0));
 }
 
 function handleResponse(response) {
@@ -20,11 +21,10 @@ function handleResponse(response) {
             if (response.status === 401) {
                 location.reload(true);
             }
-
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }
-
+        
         return data;
-    });
+    })
 }

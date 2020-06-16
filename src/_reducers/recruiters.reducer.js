@@ -1,16 +1,16 @@
 import { recruiterConstants } from '../_constants';
 
-export function recruiters(state = {}, action) {
+export function candidates(state = {}, action) {
   switch (action.type) {
-    case recruiterConstants.GETUSERS_REQUEST:
+    case recruiterConstants.GETCANDIDATES_REQUEST:
       return {
         loading: true
       };
-    case recruiterConstants.GETUSERS_SUCCESS:
+    case recruiterConstants.GETCANDIDATES_SUCCESS:
       return {
-        items: action.users
+        items: action.candidates
       };
-    case recruiterConstants.GETUSERS_FAILURE:
+    case recruiterConstants.GETCANDIDATES_FAILURE:
       return { 
         error: action.error
       };

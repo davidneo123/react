@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { recruiterActions } from '../../_actions';
+import {CheckBox} from  '../../_components';
 
 class RecruitersPage extends React.Component {
     constructor(props) {
@@ -9,31 +10,34 @@ class RecruitersPage extends React.Component {
 
         this.state = {
             tech:'',
-            frameworks:[]
+            frameworks:[],
+            isOdd:undefined,
+            candidates:undefined
         };
     }
+
     componentDidMount() {
-        // this.state={ tech:''}
-        // this.props.getUsers();
+        this.props.getCandidates();
     }
 
     render() {
         const handleTech = e => {
-            this.setState({frameworks:[]});
-            this.setState({ tech: e });
+            return this.setState({frameworks:[],tech: e });
         }
         const handleFramework = e => {
-            console.log(e,this.state.frameworks.find(framework=>framework===e))
             this.state.frameworks.find(framework=>framework===e)?
              this.setState({ frameworks:this.state.frameworks.filter(framework=>framework !==e) })
              :this.setState({ frameworks: [...this.state.frameworks,e] })
-            //  this.handleSearch.bind(this)
             }
             
         const handleSearch = ()=>{
-            return this.props.getUsers();
+            const isOdd = num=> num % 2;
+            this.state.frameworks.map(num=>this.setState({isOdd:isOdd(num)}))
+            console.log('is odd?: ' + this.state.isOdd);    
+            return this.props.getCandidates(this.state.isOdd);
         }
-        const { users } = this.props;
+        const { candidates,frameworks } = this.props;
+        console.log(candidates)
         const techs = {
             net:[
                 {id:1, name:'ASP.Net'},
@@ -51,67 +55,71 @@ class RecruitersPage extends React.Component {
             ]
         };
         return (
+        <div>
+        {candidates.loading && <em>Loading candidates...<img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></em>}
+        {candidates.error && <span className="text-danger">ERROR: {candidates.error}</span>}
+        {candidates.items && 
             <div className="col-md-6 col-md-offset-3">
-                    {console.log(this.state.frameworks)}
+                    {console.log(this.state.candidates)}
                 <h2>Please select the technology:</h2>
                 <label>
                     <input type="radio" name="net" 
-                        // value={this.state.tech==='net'} 
+                        value={this.state.tech==='net'} 
                         checked={this.state.tech ==='net'} 
                         onChange={handleTech.bind(this,'net')} />
                     .Net  
                 </label>
                 <label>
                     <input type="radio" name="java" 
-                        // value={this.state.tech==='java'} 
+                        value={this.state.tech==='java'} 
                         checked={this.state.tech==='java'} 
                         onChange={handleTech.bind(this,'java')}/>
                     Java
                 </label>
                 {this.state.tech && this.state.tech!=='' && 
                     <div>
-                        <h3>Please select the frameworks:</h3>
-                        {techs[this.state.tech].map(tech=>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h3>Please select the frameworks:</h3>
+                        {/* {techs[this.state.tech].map(tech=>
                         <div key ={tech.id}>
                             <label>
                                 <input type="checkbox" name="framework" 
-                                    value={this.state.frameworks.find(framework=>framework.id===tech.id)} 
-                                    checked={this.state.frameworks.find(framework=>framework.id===tech.id)} 
+                                    value={this.state.frameworks.find(framework=>framework===tech.id)} 
+                                    checked={this.state.frameworks.find(framework=>framework===tech.id)} 
                                     onChange={handleFramework.bind(this,tech.id)}/>
-                                {tech.name}
+                                {tech.name}{console.log(this.state.candidates)}
                             </label>
                         </div>
-                        )}                   
+                        )}                    */}
                     </div>
                 }
-                {users.loading && <em>Loading candidates...</em>}
-                {users.error && <span className="text-danger">ERROR: {users.error}</span>}
-                {users.items &&
+                {frameworks && frameworks.length  &&
                     <ul>
-                     <h3>All shows:</h3>
-                        {users.items.map((user, index) =>
-                            <li key={user.id}>
+                     <h3>All candidates available:</h3>
+                        {candidates.items.map((candidate, index) =>
+                            <li key={candidate.id}>
                                 <Link to={{
-                                pathname: "/schedule",
-                                state: user}}>
-                                    <strong>{user.name }</strong><br/>
+                                    pathname: "/schedule",
+                                    state: candidate}}>
+                                    <strong>{candidate.name }</strong><br/>
                                 </Link>
                             </li>
                         )}
                     </ul>
                 }
             </div>
+        }
+        </div>                                                                                                                                                                                                                                                      
         );
     }
 }
 
 function mapState(state) {
-    const { users } = state;
-    return { users };
+    const { candidates, frameworks} = state;
+    return { candidates, frameworks };
 }
 
 const actionCreators = {
-     getUsers: recruiterActions.getUsers
+     getCandidates: recruiterActions.getCandidates
 }
 
 const connectedRecruitersPage = connect(mapState, actionCreators)(RecruitersPage);

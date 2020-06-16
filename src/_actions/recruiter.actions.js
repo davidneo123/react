@@ -2,22 +2,20 @@ import { recruiterConstants } from '../_constants';
 import { recruiterService } from '../_services';
 
 export const recruiterActions = {
-    getUsers
+    getCandidates
 };
 
-function getUsers(q) {
-    console.log('action: '+q)
+function getCandidates() {
     return dispatch => {
-        dispatch(request(q));
-
-        recruiterService.getUsers(q)
+        dispatch(request());
+        recruiterService.getCandidates()
             .then(
-                users => dispatch(success(users)),
-                error => dispatch(failure(q,error.toString()))
+                candidates => dispatch(success(candidates)),
+                error => dispatch(failure(error.toString()))
             );
     };
 
-    function request(q) { return { type: recruiterConstants.GETUSERS_REQUEST,q } }
-    function success(users) { return { type: recruiterConstants.GETUSERS_SUCCESS, users } }
-    function failure(error) { return { type: recruiterConstants.GETUSERS_FAILURE, q,error } }
+    function request() { return { type: recruiterConstants.GETCANDIDATES_REQUEST } }
+    function success(candidates) { return { type: recruiterConstants.GETCANDIDATES_SUCCESS, candidates } }
+    function failure(error) { return { type: recruiterConstants.GETCANDIDATES_FAILURE,error } }
 }
